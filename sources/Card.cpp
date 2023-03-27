@@ -1,5 +1,8 @@
 #include "card.hpp"
-
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <stack>
 
 using namespace std;
 
@@ -13,4 +16,6 @@ namespace ariel{
     string Card::getCardInfo(){
         return " ";
     }
+    
+    
 }

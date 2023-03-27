@@ -21,6 +21,6 @@ namespace ariel
         int get_p2_stacksize();
         int get_p1_cardsTaken();
         int get_p2_cardsTaken();
-        
+        void there_is_a_tie();
     };
 }

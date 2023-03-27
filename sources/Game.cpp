@@ -37,5 +37,7 @@ namespace ariel
     int Game::get_p2_cardsTaken(){
         return p2.cardesTaken();
     }
-    
+    void Game::there_is_a_tie(){
+    }
+
 }

@@ -152,6 +152,44 @@ TEST_CASE("Test 13 - card info is work")
     CHECK_NOTHROW(c.getCardInfo());
 }
 
+TEST_CASE("Test 14 - there is a tie")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    CHECK_NOTHROW(g.there_is_a_tie());
+}
+
+TEST_CASE("Test 15 - check if return my cards")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    CHECK_NOTHROW(p1.getMyCards());
+    CHECK_NOTHROW(p2.getMyCards());
+    CHECK(p1.getMyCards().size() == 26);
+    CHECK(p2.getMyCards().size() == 26);
+}
+TEST_CASE("Test 16 - check if return my cards after turn")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    g.playTurn();
+    CHECK_NOTHROW(p1.getMyCards());
+    CHECK_NOTHROW(p2.getMyCards());
+}
+TEST_CASE("Test 17 - check if return my cards after all turns")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    g.playAll();
+    CHECK_NOTHROW(p1.getMyCards());
+    CHECK_NOTHROW(p2.getMyCards());
+}
+
+
 
 
 

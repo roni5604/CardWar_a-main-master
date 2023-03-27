@@ -9,10 +9,14 @@
 
 using namespace std;
 
+
 namespace ariel
 {
+  
+
     Player::Player(const string &name) : Name(name)
     {
+
     }
     Player::~Player()
     {
@@ -27,6 +31,10 @@ namespace ariel
         return Card();
     }
     void Player::push_pile(stack<Card> myStack){
-
     }
+
+    stack <Card> Player::getMyCards(){
+        return stack<Card>();
+    }
+    
 }

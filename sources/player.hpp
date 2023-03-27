@@ -9,7 +9,10 @@ namespace ariel
     class Player
     {
     private:
-         string Name;
+        string Name;
+        int myCardsTaken;
+        stack<Card> myCards;
+
     public:
         Player(const string &name);
         ~Player();
@@ -17,6 +20,8 @@ namespace ariel
         int stacksize();
         Card pop_pile();
         void push_pile(stack<Card> myStack);
+        stack <Card> getMyCards();
+
 
     };
 }
