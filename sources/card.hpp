@@ -7,7 +7,8 @@ namespace ariel
     {
  
     public:
-        Card(int value, string suit);
+        Card();
         ~Card();
+        string getCardInfo();
     };
 }

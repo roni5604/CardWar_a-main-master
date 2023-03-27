@@ -7,9 +7,8 @@ using namespace std;
 
 namespace ariel
 {
-    Game::Game(Player& p1, Player& p2){
-        this->p1 = p1;
-        this->p2 = p2;
+    Game::Game(Player &p1, Player &p2) : p1(p1), p2(p2)
+    {
     }
     void Game::playAll(){
     }
@@ -26,4 +25,17 @@ namespace ariel
     
     void Game::playTurn(){
     }
+    int Game::get_p1_stacksize(){
+        return p1.stacksize();
+    }
+    int Game::get_p2_stacksize(){
+        return p2.stacksize();
+    }
+    int Game::get_p1_cardsTaken(){
+        return p1.cardesTaken();
+    }
+    int Game::get_p2_cardsTaken(){
+        return p2.cardesTaken();
+    }
+    
 }

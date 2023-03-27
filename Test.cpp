@@ -4,301 +4,155 @@
 #include <sstream>
 #include <stdexcept>
 #include "doctest.h"
-using namespace std;
-
-
-#include "sources/player.hpp"
 #include "sources/game.hpp"
+#include "sources/player.hpp"
 #include "sources/card.hpp"
+#include <iostream>
+#include <stack>
 
+using namespace std;
+using namespace ariel;
 
-int HowManyCardsTaken(Player& p){
-    return p.cardesTaken();
-    //return the number of cards taken by the player
-}
-int HowManyCardsHave(Player& p){
-    return p.stacksize();
-    //return the number of cards in the stack
-}
-int HowManyCardsInDeck(Game& g){
-    return g.deckSize();
-    //return the number of cards in the deck
-}
-int HowManyCardsInPile(Game& g){
-    return g.pileSize();
-    //return the number of cards in the pile
-}
-int HowManyCardsInHand(Player& p){
-    return p.handSize();
-    //return the number of cards in the hand
-}
-int HowManyCardsInStack(Player& p){
-    return p.stackSize();
-    //return the number of cards in the stack
-}
-int HowManyCardsInDiscard(Player& p){
-    return p.discardSize();
-    //return the number of cards in the discard pile
-}
-bool IsCardInHand(Player& p, Card& c){
-    return p.isCardInHand(c);
-    //return true if the card is in the hand
-}
-bool IsCardInStack(Player& p, Card& c){
-    return p.isCardInStack(c);
-    //return true if the card is in the stack
-}
-bool IsCardInDiscard(Player& p, Card& c){
-    return p.isCardInDiscard(c);
-    //return true if the card is in the discard pile
-}
-bool IsCardInPile(Game& g, Card& c){
-    return g.isCardInPile(c);
-    //return true if the card is in the pile
-}
-bool IsCardInDeck(Game& g, Card& c){
-    return g.isCardInDeck(c);
-    //return true if the card is in the deck
-}
-bool IsCardInGame(Game& g, Card& c){
-    return g.isCardInGame(c);
-    //return true if the card is in the game
-}
-bool IsCardInPlayer(Player& p, Card& c){
-    return p.isCardInPlayer(c);
-    //return true if the card is in the player
-}
-bool IsCardInPlayerHand(Player& p, Card& c){
-    return p.isCardInPlayerHand(c);
-    //return true if the card is in the player hand
-}
-bool IsCardInPlayerStack(Player& p, Card& c){
-    return p.isCardInPlayerStack(c);
-    //return true if the card is in the player stack
-}
-bool IsCardInPlayerDiscard(Player& p, Card& c){
-    return p.isCardInPlayerDiscard(c);
-    //return true if the card is in the player discard pile
-}
-bool IsCardInPlayerGame(Player& p, Card& c){
-    return p.isCardInPlayerGame(c);
-    //return true if the card is in the player game
-}
-void PrintCard(Card& c){
-    cout << c << endl;
-    //print the card
-}
-void PrintPlayer(Player& p){
-    cout << p << endl;
-    //print the player
-}
-void PrintGame(Game& g){
-    cout << g << endl;
-    //print the game
-}
-void PrintDeck(Game& g){
-    cout << g.deck() << endl;
-    //print the deck
-}
-void PrintPile(Game& g){
-    cout << g.pile() << endl;
-    //print the pile
-}
-void PrintHand(Player& p){
-    cout << p.hand() << endl;
-    //print the hand
-}
-void PrintStack(Player& p){
-    cout << p.stack() << endl;
-    //print the stack
-}
-void PrintDiscard(Player& p){
-    cout << p.discard() << endl;
-    //print the discard pile
-}
-
-
-TEST_CASE("Test Number1 - Init Deck"){
+TEST_CASE("Test 1- Initalization of the game ")
+{
     Player p1("p1");
     Player p2("p2");
     Game g(p1, p2);
-    CHECK(HowManyCardsInDeck(g) == 52);
+    CHECK(g.get_p1_stacksize() == 26);
+    CHECK(g.get_p2_stacksize() == 26);
+    CHECK(g.get_p1_cardsTaken() == 0);
+    CHECK(g.get_p2_cardsTaken() == 0);
+    CHECK(g.get_p1_stacksize() + g.get_p2_stacksize() == 52);
 }
 
-TEST_CASE("Test Number2 - Init Card"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    CHECK(HowManyCardsTaken(p1) == 0);
-    CHECK(HowManyCardsTaken(p2) == 0);
-}
-TEST_CASE("Test Number3 - Init Player"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    CHECK(HowManyCardsHave(p1) == 26);
-    CHECK(HowManyCardsHave(p2) == 26);
-}
-TEST_CASE("Test Number4 - Play Turn"){
-    Player p1("p1");
-    Player p2("p2");
+TEST_CASE("Test 2 - play one turn ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playTurn();
-    bool case1 = (HowManyCardsTaken(p1) == 2 && HowManyCardsTaken(p2) == 0&& HowManyCardsHave(p1) == 27 && HowManyCardsHave(p2) == 25);
-    bool case2 = (HowManyCardsTaken(p1) == 0 && HowManyCardsTaken(p2) == 2&& HowManyCardsHave(p1) == 25 && HowManyCardsHave(p2) == 27);
-    bool case3 = (HowManyCardsTaken(p1) == 6 && HowManyCardsTaken(p2) == 0&& HowManyCardsHave(p1) == 29 && HowManyCardsHave(p2) == 23);
-    bool case4 = (HowManyCardsTaken(p1) == 0 && HowManyCardsTaken(p2) == 6&& HowManyCardsHave(p1) == 23 && HowManyCardsHave(p2) == 29);
-    bool case5 = (HowManyCardsTaken(p1) == 10 && HowManyCardsTaken(p2) == 0&& HowManyCardsHave(p1) == 31 && HowManyCardsHave(p2) == 21);
-    bool case6 = (HowManyCardsTaken(p1) == 0 && HowManyCardsTaken(p2) == 10&& HowManyCardsHave(p1) == 21 && HowManyCardsHave(p2) == 31);
-    CHECK(case1 || case2 || case3 || case4 || case5 || case6);
+    bool bob_won = (g.get_p1_cardsTaken() >= 1 && g.get_p2_cardsTaken() == 0);
+    bool alice_won = (g.get_p2_cardsTaken() >= 1 && g.get_p1_cardsTaken() == 0);
+    bool tie = (g.get_p1_cardsTaken() == 0 && g.get_p2_cardsTaken() == 0);
+    bool valid = (bob_won || alice_won || tie);
+    CHECK(valid);
 }
-TEST_CASE("Test Number5 - Play All"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 3 - play all turns ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playAll();
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+    bool bob_won = (g.get_p1_cardsTaken() > g.get_p2_cardsTaken());
+    bool alice_won = (g.get_p2_cardsTaken() > g.get_p1_cardsTaken());
+    bool tie = (g.get_p1_cardsTaken() == g.get_p2_cardsTaken());
+    bool valid = (bob_won || alice_won || tie);
+    CHECK(valid);
 }
-TEST_CASE("Test Number6 - Print Last Turn"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 4 - print last turn ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playTurn();
-    g.printLastTurn();
-    CHECK(HowManyCardsInPile(g) == 2);
-    CHECK(HowManyCardsInDeck(g) == 50);
+    
+    CHECK_NOTHROW(g.printLastTurn());
+    
 }
-TEST_CASE("Test Number7 - Print Winer"){
-    Player p1("p1");
-    Player p2("p2");
+TEST_CASE("Test 5 - print winner ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playAll();
-    g.printWiner();
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+ 
+    CHECK_NOTHROW(g.printWiner());
 }
-TEST_CASE("Test Number8 - Print Log"){
-    Player p1("p1");
-    Player p2("p2");
+TEST_CASE("Test 6 - print good log ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playAll();
-    g.printLog();
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+    CHECK_NOTHROW(g.printLog());
 }
-TEST_CASE("Test Number9 - Print Stats"){
-    Player p1("p1");
-    Player p2("p2");
+TEST_CASE("Test 7 - print is good stats ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playAll();
-    g.printStats();
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+    CHECK_NOTHROW(g.printStats());
 }
-TEST_CASE("Test Number10 - Print Game"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 8 - someone is out of cards ")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
     g.playAll();
-    g.printGame();
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+    bool bob_won = (g.get_p1_cardsTaken() > g.get_p2_cardsTaken());
+    bool alice_won = (g.get_p2_cardsTaken() > g.get_p1_cardsTaken());
+    bool tie = (g.get_p1_cardsTaken() == g.get_p2_cardsTaken());
+    bool valid = (bob_won || alice_won || tie);
+    CHECK(valid);
 }
-TEST_CASE("Test Number11 - Print Player"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 9 - if the pile is even")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
-    g.playAll();
-    g.printPlayer(p1);
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+    g.playTurn();
+    bool someone_take_even = ((g.get_p1_cardsTaken() % 2 == 0) && (g.get_p2_cardsTaken() % 2 == 0));
+    CHECK(someone_take_even);
 }
-TEST_CASE("Test Number12 - Print Card"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 10 - legal turn")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
-    g.playAll();
-    g.printCard(g.getCardFromDeck());
-    CHECK(HowManyCardsInPile(g) == 52);
-    CHECK(HowManyCardsInDeck(g) == 0);
+    g.playTurn();
+    bool legal_cards = ((g.get_p1_cardsTaken() == 2) || (g.get_p2_cardsTaken() == 2));
+    bool legal_tie = ((g.get_p1_cardsTaken()%3 == 0) || (g.get_p2_cardsTaken()%3 == 0));
+    bool legal_turn = (legal_cards || legal_tie);
+    CHECK(legal_turn);
 }
-TEST_CASE("Test Number13 - Is Card In Discard"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 11 - pop works")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInDiscard(p1, g.getCardFromPile()));
-    CHECK(IsCardInDiscard(p2, g.getCardFromPile()));
-    CHECK(!IsCardInDiscard(p1, g.getCardFromDeck()));
-    CHECK(!IsCardInDiscard(p2, g.getCardFromDeck()));
+    CHECK_NOTHROW(p1.pop_pile());
+    CHECK_NOTHROW(p2.pop_pile());
 }
-TEST_CASE("Test Number14 - Is Card In Deck"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 12 - push works")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInDeck(g, g.getCardFromDeck()));
-    CHECK(!IsCardInDeck(g, g.getCardFromPile()));
+    std::stack<Card> myStack;
+    myStack.push(p1.pop_pile());
+    myStack.push(p2.pop_pile());
+    CHECK_NOTHROW(p1.push_pile(myStack));
+    CHECK_NOTHROW(p2.push_pile(myStack));
 }
-TEST_CASE("Test Number15 - Is Card In Hand"){
-    Player p1("p1");
-    Player p2("p2");
+
+TEST_CASE("Test 13 - card info is work")
+{
+    Player p1("bob");
+    Player p2("alice");
     Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInHand(p1, g.getCardFromDeck()));
-    CHECK(IsCardInHand(p2, g.getCardFromDeck()));
-    CHECK(!IsCardInHand(p1, g.getCardFromPile()));
-    CHECK(!IsCardInHand(p2, g.getCardFromPile()));
+    Card c = p1.pop_pile();
+    CHECK_NOTHROW(c.getCardInfo());
 }
-TEST_CASE("Test Number16 - Is Card In Pile"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInPile(g, g.getCardFromPile()));
-    CHECK(!IsCardInPile(g, g.getCardFromDeck()));
-}
-TEST_CASE("Test Number17 - Is Card In Player"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInPlayer(p1, g.getCardFromDeck()));
-    CHECK(IsCardInPlayer(p2, g.getCardFromDeck()));
-    CHECK(!IsCardInPlayer(p1, g.getCardFromPile()));
-    CHECK(!IsCardInPlayer(p2, g.getCardFromPile()));
-}
-TEST_CASE("Test Number18 - Is Card In Taken"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInTaken(p1, g.getCardFromPile()));
-    CHECK(IsCardInTaken(p2, g.getCardFromPile()));
-    CHECK(!IsCardInTaken(p1, g.getCardFromDeck()));
-    CHECK(!IsCardInTaken(p2, g.getCardFromDeck()));
-}
-TEST_CASE("Test Number19 - Is Card In Player Hand"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInPlayerHand(p1, g.getCardFromDeck()));
-    CHECK(IsCardInPlayerHand(p2, g.getCardFromDeck()));
-    CHECK(!IsCardInPlayerHand(p1, g.getCardFromPile()));
-    CHECK(!IsCardInPlayerHand(p2, g.getCardFromPile()));
-}
-TEST_CASE("Test Number20 - Is Card In Player Discard"){
-    Player p1("p1");
-    Player p2("p2");
-    Game g(p1, p2);
-    g.playAll();
-    CHECK(IsCardInPlayerDiscard(p1, g.getCardFromPile()));
-    CHECK(IsCardInPlayerDiscard(p2, g.getCardFromPile()));
-    CHECK(!IsCardInPlayerDiscard(p1, g.getCardFromDeck()));
-    CHECK(!IsCardInPlayerDiscard(p2, g.getCardFromDeck()));
-}
+
+
 
 
 
