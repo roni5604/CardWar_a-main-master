@@ -188,6 +188,33 @@ TEST_CASE("Test 17 - check if return my cards after all turns")
     CHECK_NOTHROW(p1.getMyCards());
     CHECK_NOTHROW(p2.getMyCards());
 }
+TEST_CASE("Test 18 - check if return my cards after all turns")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    g.playAll();
+    CHECK_NOTHROW(p1.getMyCards());
+    CHECK_NOTHROW(p2.getMyCards());
+}
+TEST_CASE("Test 19 - check end point")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    g.playAll();
+    CHECK_NOTHROW(g.playTurn());
+}
+TEST_CASE("Test 20 - check end point")
+{
+    Player p1("bob");
+    Player p2("alice");
+    Game g(p1, p2);
+    g.playAll();
+    CHECK_NOTHROW(g.playAll());
+}
+
+
 
 
 
