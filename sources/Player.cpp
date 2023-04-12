@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include "player.hpp"
-#include "card.hpp"
 #include <iostream>
 #include <stack>
 
@@ -12,32 +11,78 @@ using namespace std;
 
 namespace ariel
 {
-  
 
-    Player::Player(const string &name) : Name(name)
+    Player::Player(const string &name) : Name(name), numOfWins(0), numOfLoses(0), myCardsTaken(0)
     {
-
+        
     }
+    Player::Player(const Player &other) : Name(other.Name), numOfWins(other.numOfWins), numOfLoses(other.numOfLoses), myCardsTaken(other.myCardsTaken)
+    {
+    }
+    Player &Player::operator=(const Player &other)
+    {
+        if (this != &other)
+        {
+            Name = other.Name;
+            numOfWins = other.numOfWins;
+            numOfLoses = other.numOfLoses;
+            myCardsTaken = other.myCardsTaken;
+        }
+        return *this;
+    }
+    
     Player::~Player()
     {
     }
     void Player::addCard(string card){
+        myCardsTakenStack.push(card);
+    }
+    void Player::startGameAddCard(string card){
         myCards.push(card);
     }
     int Player::cardesTaken(){
-        return 0;
+        return myCardsTakenStack.size();
     }
     int Player::stacksize(){
         return myCards.size();
     }
-    Card Player::pop_pile(){
-        return Card();
+    string Player::pop_pile(){
+        string temp = myCards.top();
+        myCards.pop();
+        return temp;
     }
-    void Player::push_pile(stack<Card> myStack){
+    string Player::getName(){
+        return Name;
+    }
+    void Player::push_pile(stack<string> newStack){
+        while (!newStack.empty())
+        {
+            myCardsTakenStack.push(newStack.top());
+            newStack.pop();}
+    }
+       void Player::push_pile(string newCardToAdd){
+        myCardsTakenStack.push(newCardToAdd);
     }
 
-    stack <Card> Player::getMyCards(){
+
+    stack <string> Player::getMyCards(){
         return myCards;
     }
+    void Player::addCardsTaken(int cardsTaken){
+        myCardsTaken += cardsTaken;
+    }
+    int Player::getWin(){
+        return numOfWins;
+    }
+    void Player::addWin(){
+        numOfWins++;
+    }
+    int Player::getlose(){
+        return numOfLoses;
+    }
+    void Player::addLose(){
+        numOfLoses++;
+    }
+
     
 }

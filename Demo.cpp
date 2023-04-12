@@ -13,10 +13,11 @@ using namespace std;
 
 #include "sources/player.hpp"
 #include "sources/game.hpp"
-#include "sources/card.hpp"
+
 using namespace ariel;
 
 int main() {
+  cout << "Hello, World!" << endl;
   // Create two players with their names 
    Player p1("Alice");
    Player p2("Bob");
