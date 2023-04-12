@@ -7,8 +7,14 @@ namespace ariel
     {
  
     public:
+
         Card();
         ~Card();
         string getCardInfo();
+        string getRandomCard();
+   
+    private:
+     string allCardsBefore[];
+        int cardGiven;
     };
 }

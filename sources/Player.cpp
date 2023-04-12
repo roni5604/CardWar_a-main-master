@@ -21,11 +21,14 @@ namespace ariel
     Player::~Player()
     {
     }
+    void Player::addCard(string card){
+        myCards.push(card);
+    }
     int Player::cardesTaken(){
         return 0;
     }
     int Player::stacksize(){
-        return 0;
+        return myCards.size();
     }
     Card Player::pop_pile(){
         return Card();
@@ -34,7 +37,7 @@ namespace ariel
     }
 
     stack <Card> Player::getMyCards(){
-        return stack<Card>();
+        return myCards;
     }
     
 }

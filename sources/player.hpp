@@ -11,11 +11,13 @@ namespace ariel
     private:
         string Name;
         int myCardsTaken;
-        stack<Card> myCards;
+        stack<string> myCards;
 
     public:
         Player(const string &name);
         ~Player();
+        void addCard(string card);
+
         int cardesTaken();
         int stacksize();
         Card pop_pile();
