@@ -202,7 +202,7 @@ namespace ariel
             lastTurn = player1.getName() + " played: " + p1_card + " " + player2.getName() + " played: " + p2_card;
             if (howIsBigger == 0) // draw
             {
-                lastTurn.append(" draw.  ");
+                lastTurn.append(" draw. \n ");
                 stack<string> tie;
                 tie.push(p1_card);
                 tie.push(p2_card);
@@ -280,7 +280,7 @@ namespace ariel
             {
                 player1.addWin();
                 player2.addLose();
-                lastTurn.append(player1.getName() + " won ");
+                lastTurn.append(player1.getName() + " won \n");
                 player1.addCard(p1_card);
                 player1.addCard(p2_card);
                 player1.addCardsTaken(2);
@@ -289,15 +289,7 @@ namespace ariel
             {
                 player2.addWin();
                 player1.addLose();
-                lastTurn.append(player2.getName() + " won ");
-                player2.addCard(p1_card);
-                player2.addCard(p2_card);
-                player2.addCardsTaken(2);
-            }
-            {
-                player2.addWin();
-                player1.addLose();
-                lastTurn.append(player2.getName() + " won ");
+                lastTurn.append(player2.getName() + " won \n ");
                 player2.addCard(p1_card);
                 player2.addCard(p2_card);
                 player2.addCardsTaken(2);
