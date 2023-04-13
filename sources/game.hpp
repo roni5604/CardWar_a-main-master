@@ -14,6 +14,7 @@ namespace ariel
         Player& player1;
         Player& player2;
         std::vector<std::tuple<std::string, bool>> allCardsBefore;
+        std::vector<std::string> cardsbefore;
         int draw;
         int turn;
         vector<string> logs;
